@@ -29,6 +29,6 @@ var ProjectSchema = new mongoose.Schema({
     buff: Buffer
 });
  
-var ItemModel = mongoose.model('project', ItemSchema);
+var ItemModel = mongoose.model('project', ProjectSchema);
  
 module.exports = ItemModel
