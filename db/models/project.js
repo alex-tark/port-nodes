@@ -15,7 +15,7 @@ var ProjectSchema = new mongoose.Schema({
     user : {
         type: String,
         required: true,
-        default: admin
+        default: "admin"
     },
     link : {
         type: String,
