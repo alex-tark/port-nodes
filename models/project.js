@@ -4,7 +4,7 @@ var project  = require("../db/models/project.js");
 
 module.exports = {
     add : function (projectData) {
-        return new project(rojectData).save();
+        return new project(projectData).save();
     },
     
     removeOne : function (id) {

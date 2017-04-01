@@ -23,6 +23,12 @@ var ProjectSchema = new mongoose.Schema({
         required: false, 
         default: "localhost:3000"
     },
+    type : {
+        type: String,
+        unique: false,
+        required: true, 
+        default: "Application"
+    },
     date : {
         type: Date
     },
