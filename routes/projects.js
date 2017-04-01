@@ -6,7 +6,7 @@ router.get('/', function(req, res, next) {
     model.project.find(function (err, cursor) {
       if (err) res.redirect('/');
       else {
-        res.render('projects', { title: 'Project list', proj: cursor.sort({ "title": -1 }) });
+        res.render('projects', { title: 'Project list', proj: cursor.sort({ "id": -1 }) });
       }
     });
   }
@@ -19,9 +19,9 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function (req, res) {
-  console.log(req.body);
   model.project.add(req.body, function (document) {
-    res.json(document);
+    console.log(document);
+    res.redirect('/project');
   });
 });
 

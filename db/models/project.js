@@ -30,7 +30,8 @@ var ProjectSchema = new mongoose.Schema({
         default: "Application"
     },
     date : {
-        type: Date
+        type: Date,
+        default: new Date()
     },
     buff: Buffer
 });
