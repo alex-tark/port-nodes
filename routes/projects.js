@@ -1,17 +1,18 @@
 var express = require('express');
 var router = express.Router();
+var ObjectID = require('mongodb').ObjectID;
 
 router.get('/', function(req, res, next) {
   if (req.query.id == undefined) {
     model.project.find(function (err, cursor) {
       if (err) res.redirect('/');
       else {
-        res.render('projects', { title: 'Project list', proj: cursor.sort({ "id": -1 }) });
+        res.render('projects', { title: 'Project list', proj: cursor.sort({ "date": -1 }) });
       }
     });
   }
   else {
-    model.project.findOne(req.query.id).then(function (document) {
+    model.project.findOne(new ObjectID(req.query.id)).then(function (document) {
       if (document == null) res.redirect('/project');
       else res.render('project', { title: document.title + " project", proj: document });
     });
@@ -19,10 +20,10 @@ router.get('/', function(req, res, next) {
 });
 
 router.post('/', function (req, res) {
-  model.project.add(req.body, function (document) {
-    console.log(document);
-    res.redirect('/project');
-  });
+  model.project.add(req.body);
+  setTimeout(function () {
+      res.redirect('/project');
+  }, 500);
 });
 
 module.exports = router;

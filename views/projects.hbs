@@ -1,18 +1,18 @@
-<h1>{{title}}</h1>
-<p>Welcome to {{title}}</p>
+<div class="container">
+    <form action="/project" method="POST">
+        <input type="text" name="title">
+        <input type="text" name="description">
+        <input type="text" name="user">
+        <input type="text" name="link">
+        <input type="submit" name="send" value="Send">
+    </form>
 
-<form action="/project" method="POST">
-    <input type="text" name="title">
-    <input type="text" name="description">
-    <input type="text" name="user">
-    <input type="text" name="link">
-    <input type="submit" name="send" value="Send">
-</form>
-
-<ul>
-    {{#each proj}}
-        <li>
-            <a href="/project?id={{id}}">{{title}}</a>
-        </li>
-    {{/each}}
-</ul>
+{{#each proj}}
+    <a href="/project?id={{id}}">
+        <div class="col-sm-12 col-md-6 col-xs6 text-center">
+            <div class="h5">{{title}}</div>
+            <p>{{description}}</p>
+        </div>
+    </a>
+{{/each}}
+</div>
