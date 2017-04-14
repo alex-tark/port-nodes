@@ -33,6 +33,7 @@ var app = express();
 
 global.model = require('./models/index.js');
 global.USER_DIR = __dirname + '/users_temlates/';
+global.__project = __dirname;
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));

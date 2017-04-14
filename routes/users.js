@@ -17,24 +17,6 @@ router.get('/signin', function(req, res, next) {
   }
 });
 
-router.post('/signin', function(req, res, next) {
-  if (req.cookies.auth) {
-    res.redirect('/user');
-  } else {
-    model.user.find({
-      "login": req.body.username 
-    }, function(err, data) {
-      if (err || data == []) {
-        res.render('signin', { title: "Sign In now", errors: {
-          findLoginError: "Wrong username"
-        }});
-      } else {
-        console.log(data);
-      }
-    });
-  }
-});
-
 router.get('/signup', function(req, res, next) {
   if (req.cookies.auth) {
     res.redirect('/user');

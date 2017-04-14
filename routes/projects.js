@@ -3,6 +3,8 @@ var router = express.Router();
 var ObjectID = require('mongodb').ObjectID;
 var fs = require('fs');
 var filesTree = require('files-tree');
+var PDFKit = require('pdfkit');
+var blobStream = require('blob-stream');
 
 const itemsOnPage = 6;
 
@@ -71,7 +73,6 @@ router.get('/', function(req, res, next) {
     } else {
       model.project.findOne(new ObjectID(req.query.id)).then(function (document) {
         var tree = filesTree.tree('./users_templates/admin/lorem');
-        console.log(tree);
         if (document == null) res.redirect('/project');
         else res.render('project', { title: document.title + " project", proj: document, folders: tree });
       });
@@ -109,6 +110,35 @@ router.get('/settings', function(req, res) {
                       });
                     }
                   });
+  }
+});
+
+router.get('/topdf', function(req, res, next) {
+  if (req.query.id) {
+    model.project.findOne(new ObjectID(req.query.id)).
+                  then(function (document) {
+                    if (document == null) res.redirect('/project')
+                    else {
+                      let doc = new PDFKit;
+                      let stream = doc.pipe(blobStream());
+
+                      doc.fontSize(20).
+                          text("Name of project: " + document.title);
+                      doc.fontSize(15).
+                          text("Status: " + document.status);
+                      doc.fontSize(15).
+                          text("Description: " + document.description);
+                      doc.fontSize(15).
+                          text("User: " + document.user);
+
+                      doc.end();
+
+                      res.setHeader('Content-type', 'application/pdf');
+                      doc.pipe(res);
+                    }
+                  });
+  } else {
+    res.redirect('/project');
   }
 });
 
