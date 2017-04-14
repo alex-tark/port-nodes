@@ -1,7 +1,123 @@
-<h1>{{title}}</h1>
+<div class="container">
+    <div class="col-sm-6 col-md-6 col-xs-6">
+    <a class="btn btn-link martop" href="/project?page=1"><i class="fa fa-angle-left" aria-hidden="true"></i> Projects list</a>
+</div>
 
-<h3>Project name: {{proj.title}}</h3>
-<p>Description: {{proj.description}}</p>
-<p>User: {{proj.user}}</p>
-<p>Link: {{proj.link}}</p>
-<p>Type: {{proj.type}}</p>
+<div class="col-sm-6 col-md-6 col-xs-6 text-right">
+    <a class="btn btn-link martop" href="/project/settings?id={{proj._id}}"><i class="fa fa-cog" aria-hidden="true"></i> Project settings</a>
+</div>
+    <div class="col-sm-12 col-md-12 col-xs-12">
+        <div id="mainView">
+            <div class="editor">
+                <div id="handle_bar" class="col-sm-12 col-md-12 col-xs-12">
+                    <div class="left_bar">
+                        <div class="handle_elem text-center">
+                            <a href="/project/action?name=pdf&id={{proj._id}}"
+                               data-toggle="tooltip" title="Open in PNG">
+                                <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
+                            </a>
+                        </div>
+                        <div class="handle_elem text-center">
+                            <i class="fa fa-floppy-o fa-2x" aria-hidden="true"></i>
+                        </div>
+                        <div class="handle_elem text-center">
+                            <i class="fa fa-download fa-2x" aria-hidden="true"></i>
+                        </div>
+                        <div id="add_folder" class="handle_elem text-center">
+                            <a href="/viewProject/{{title}}/addFolder/lol">
+                                <span class="fa-stack fa-md">
+                                    <i class="fa fa-folder-o fa-stack-2x" aria-hidden="true"></i>
+                                    <i class="fa fa-plus fa-stack-1x" aria-hidden="true"></i>
+                                </span>
+                            </a>
+                        </div>
+                        <div class="handle_elem text-center">
+                            <span class="fa-stack fa-md">
+                                <i class="fa fa-file-o fa-stack-2x" aria-hidden="true"></i>
+                                <i class="fa fa-plus fa-stack-1x" aria-hidden="true"></i>
+                            </span>
+                        </div>
+                    </div>
+                    <div class="right_bar">
+                        <div class="clone_link">
+                            <div id="cpylink" class="link" data-clipboard-target="#cpylink">
+                                https://projectcode.org/{{username}}?={{proj.title}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="dir col-sm-12 col-md-3 col-xs-3">
+                    <ul>
+                        <li class="dir_elem open pad">
+                            <div class="dir_text">
+                                <i class="fa fa-folder-open-o" aria-hidden="true"></i> {{proj.title}}
+                            </div>
+                            <ul>
+                                {{> fls }}
+                                <!--
+                                <ul>
+                                    <li class="dir_elem"><div class="dir_text"><i class="fa fa-folder-o" aria-hidden="true"></i> folder 1</div>
+                                        <ul class="unvisible">
+                                            <li class="file_elem"><i class="fa fa-file-code-o" aria-hidden="true"></i> module.js</li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                                <li class="file_elem"><i class="fa fa-file-code-o" aria-hidden="true"></i> app.js</li>
+                                -->
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <div class="source col-sm-12 col-md-9 col-xs-9">
+                    <div class="center text-center">
+                        <div class="h3">Welcome to the project manage editor, {{username}}!</div>
+                        <span class="about">To start just click on the file..<i class="blink">.</i></span>
+                    </div>
+                </div>
+            </div>
+
+            <div id="routes_expand">
+                <div class="h3 text-center">Register your routes</div>
+                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aut consequatur cum, dicta dolores esse exercitationem, facilis ipsam labore minus nam omnis placeat sequi vel veniam veritatis voluptate voluptates! Accusantium, sed?</p>
+                <div class="routes">
+
+                </div>
+            </div>
+        </div>
+    </div>
+    
+
+    <script type="text/javascript">
+        $(document).ready(function() {
+            new Clipboard('#cpylink');
+
+            $('.dir_text').siblings().addClass('pad');
+
+            $('.dir').css({ "height" : ($('.editor').height() - $('#mainView .editor #handle_bar').height()).toString() });
+            $('#mainView .editor #handle_bar .right_bar .link .cpy').css({ "height" : ($('#mainView .editor #handle_bar .right_bar .clone_link').height()) + 'px'})
+            setTimeout(function() {
+                $(".blink").show();
+                setInterval(function() {
+                    $(".blink").toggle();
+                }, 500);
+            }, 3000);
+
+            $('#mainView .editor .source .center').css({'margin-top' : ($('#mainView .editor').height() / 2 - $('#mainView .editor .source .center').height() / 2 - $('#mainView .editor #handle_bar').height() / 2) + 'px'});
+            $('.dir_text').click(function() {
+                $(this).toggleClass('open');
+                $(this).toggleClass('closed');
+                $(this).children('i').toggleClass('fa fa-folder-open-o');
+                $(this).children('i').toggleClass('fa fa-folder-o');
+                $(this).siblings('ul').toggleClass('unvisible');
+                $(this).siblings().addClass('pad');
+            });
+
+            $('.file_elem').click(function() {
+                $('.active_file').removeClass('active_file');
+                $(this).toggleClass('active_file');
+            });
+        });
+    </script>
+<div class="h3">Description of the project</div>
+{{description}}
+</div>

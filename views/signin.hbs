@@ -1,0 +1,52 @@
+<div class="pad-top"></div>
+<div class="container">
+    <div class="vertical">
+        <div class="formContent">
+            <div class="h1 text-center">{{title}}</div>
+            <div class="col-sm-4"></div>
+            <div class="inputValues col-sm-4">
+                <img src="/images/login-ico.png" alt="login icon" id="logoIcos">
+                <form data-toggle="validator" role="form" action="/login" method="POST" id="regForm">
+                    <div class="form-group">
+                        <label for="name" class="control-label">Login</label>
+                        <input type="text" name="name" 
+                            data-minlength="5" data-maxlength="30" 
+                            class="form-control" id="name" 
+                            placeholder="Write your login" required>
+
+                        <div class="help-block with-errors"></div>
+                    </div>
+                
+                    <div class="form-group">
+                        <label for="password" class="control-label">Password</label>
+                        <input type="password" name="password" 
+                            data-minlength="5" data-maxlength="30" 
+                            class="form-control" id="password" 
+                            placeholder="Write your password" required>
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+                    <div class="col-sm-12 col-md-12 col-xs-12 text-center marbot">
+                        <div class="col-sm-4 col-md-4 col-xs-4">
+                            <a href="/loginfb" class="btn btn-link"><i class="fa fa-facebook" aria-hidden="true"></i></a>    
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-xs-4">
+                            <a href="/logingps" class="btn btn-link"><i class="fa fa-google-plus" aria-hidden="true"></i></a>    
+                        </div>
+                        <div class="col-sm-4 col-md-4 col-xs-4">
+                            <a href="/loginvk" class="btn btn-link"><i class="fa fa-vk" aria-hidden="true"></i></a>    
+                        </div>
+                    </div>
+                    <div class="btn-cntr">
+                        <button type="submit" class="btn btn-success" id="log" name="ok">Sign in</button>
+                    </div>
+                </form>            
+            </div>
+            <div class="col-sm-4"></div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $("#logoIcos").css({ "width": $("#regForm").width() / 2 + "px" });
+    </script>
+</div>

@@ -9,7 +9,7 @@ var ProjectSchema = new mongoose.Schema({
     },
     description : {
         type: String,
-        required: true,
+        required: false,
         default: "Project description"
     },
     user : {
@@ -19,7 +19,7 @@ var ProjectSchema = new mongoose.Schema({
     },
     link : {
         type: String,
-        unique: true,
+        unique: false,
         required: false, 
         default: "localhost:3000"
     },
@@ -32,6 +32,24 @@ var ProjectSchema = new mongoose.Schema({
     date : {
         type: Date,
         default: new Date()
+    },
+    status : {
+        type: String,
+        unique: false, 
+        required: false,
+        default: "Active"
+    },
+    routes : {
+        type: Object,
+        unique: false, 
+        required: false,
+        default: {}
+    },
+    language : {
+        type: String, 
+        unique: false,
+        required: true,
+        default: "Plain text"
     },
     buff: Buffer
 });

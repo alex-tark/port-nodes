@@ -5,7 +5,325 @@
   line-height: 100vh;
 }
 
-#menu {
-  position: fixed;
+.jstf {
+  text-align: justify;
+}
+
+#aboutCols {
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+
+#admSg {
+  display: table;
+  height: 100vh;
   width: 100%;
+}
+
+.admLog {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.pad-top {
+  padding-top: 30px;
+}
+a {
+  color: #00B7FF;
+}
+
+* {
+  font-family: Ubuntu, sans-serif;
+}
+
+#menu {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: block;
+  height: 60px;
+  line-height: 60px;
+  background-color: #333;
+  z-index: 1000;
+}
+
+#menu a {
+  text-decoration: none;
+  display: block;
+  float: left;
+  padding-left: 10px;
+  padding-right: 10px;
+  height: 60px;
+  color: #fff;
+}
+
+#menu a img {
+  height: 50px;
+  padding: 5px;
+  border-radius: 100%;
+  background-color: #fff;
+}
+
+.fl-right {
+  float: right;
+}
+
+.inputValues {
+  background: #f7f7f7;
+  border-radius: 5px;
+  box-shadow: 0px 2px 2px rgba(0, 0, 0, 0.3);
+  padding: 10px;
+}
+
+#logoIcos {
+  display: block;
+  margin: 20px auto;
+}
+
+.martop {
+  margin-top: 80px;
+}
+
+.marbot {
+  margin-bottom: 20px;
+}
+
+.btn-cntr {
+  text-align: center;
+}
+
+.vertical {
+  display: table;
+  width: 100%;
+  height: 100vh!important;
+}
+
+.vertical .formContent {
+  display: table-cell;
+  vertical-align: middle;
+}
+
+.bg-h {
+  background: url("/images/reg-ico.png") no-repeat center center;
+  background-size: 30%;
+  margin: 0 auto;
+  position: relative;
+  text-align: center;
+  width: 100%;
+  height: 20vh;
+  display: table;
+}
+
+.bg-h .h1 {
+  display: table-cell;
+  padding: 0;
+  margin: 0;
+  vertical-align: middle;
+  padding-top: 50px;
+  color: #fff;
+}
+
+.dropdown-menu a {
+  color: #222!important;
+  height: 100%!important;
+  width: 100%;
+}
+
+.dropdown .btn {
+  color: #fff;
+  text-decoration: none;
+}
+
+.projectLists {
+  list-style: none;
+}
+
+.projectLists li {
+  margin: 20px; 
+}
+
+.projectLists .header {
+  display: block;
+  padding: 40px;
+  padding-bottom: 0;
+}
+
+.projectLists li a {
+  display: block;
+  padding: 40px;
+}
+
+.active_file {
+    color: #FD971F;
+}
+
+.unvisible {
+    display: none;
+}
+
+ul {
+    list-style: none;
+    padding-left: 0;
+}
+
+.blink {
+    position: absolute;
+}
+
+#mainView {
+    margin-top: 30px;
+}
+
+#mainView .editor {
+    font-family: 'Consola Mono', sans-serif;
+    background: #272822;
+    height: 70vh;
+    color: #FFF7FB;
+}
+
+#mainView .editor #handle_bar {
+    height: 50px;
+    width: 100%;
+    display: block;
+    border-bottom: 1px solid #333;
+    background: #1f2019;
+}
+
+#mainView .editor #handle_bar .left_bar {
+    float: left;
+}
+
+#mainView .editor #handle_bar .right_bar {
+    float: right;
+    height: 50px;
+    line-height: 50px;
+    overflow: hidden;
+}
+#mainView .editor #handle_bar .right_bar .share {
+    float: left;
+    display: inline;
+}
+
+#mainView .editor #handle_bar .right_bar .link {
+    display: inline;
+    padding: 10px;
+    max-width: 400px;
+    cursor: pointer;
+    border: 1px solid #272822;
+    color: #333;
+    background: #FFF7FB;
+}
+
+#mainView .editor #handle_bar .right_bar .link::selection {
+    background: transparent;
+}
+
+#mainView .editor #handle_bar .right_bar .link::-moz-selection {
+    background: transparent;
+}
+
+#mainView .editor #handle_bar .handle_elem {
+    height: 50px;
+    cursor: pointer;
+    width: 50px;
+    line-height: 50px;
+    float: left;
+}
+
+#mainView .editor #handle_bar .handle_elem a {
+    color: #fff;
+}
+
+#mainView .editor #handle_bar .handle_elem:hover {
+    background: #272822;
+}
+
+#mainView .editor #handle_bar .handle_elem i {
+    vertical-align: middle;
+}
+
+.pad {
+    padding-left: 20px;
+}
+
+#mainView .editor .dir {
+    overflow: auto;
+    display: inline-block;
+    float: left;
+    height: 100%;
+    padding: 10px;
+    border-right: 1px solid #333;
+    color: #FDF5A9;
+    background: #1f2019;
+}
+
+#mainView .editor .dir li {
+    cursor: pointer;
+}
+
+#mainView .editor .source {
+    overflow: auto;
+    display: inline-block;
+    float: left;
+    padding: 10px;
+}
+
+#mainView .editor .source .center .h3 {
+    color: #00B9D7;
+}
+
+#mainView .editor .source .center .about {
+}
+
+#mainView .editor .source .center .blink {
+}
+
+#routes_expand {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+.h33 {
+  min-height: 20vh;
+  color: #333;
+  -webkit-transition: transform .5s;
+  -moz-transition: transform .5s;
+  transition: transform .5s;
+}
+.h33:hover {
+  transform: scale(1.2);
+}
+
+.bl-elem {
+  display: block;
+  width: 100%;
+}
+
+.padbot {
+  padding-bottom: 50px;
+}
+
+.circle {
+  display: inline-block;
+  border-radius: 100%;
+  height: 10px;
+  width: 10px;
+  background-color: blue;
+}
+
+.status .active { background-color: green; }
+.status .terminated { background-color: red; }
+.status .archive { background-color: grey; }
+
+.project-border {
+  display: inline-block;
+  width: 50%;
+  height: 50%;
+  border: 1px solid #333;
+}
+
+.status div {
+  padding-bottom: 5px;
+  border-bottom: 1px solid #eee;
 }

@@ -1,0 +1,16 @@
+{{#each folders}}
+    {{#if this.directory}}
+        <li class="dir_elem">
+            <div class="dir_text">
+                <i class="fa fa-folder-o" aria-hidden="true"></i> {{this.name}}
+            </div>
+            <ul class="unvisible">
+                {{> fls }}
+            </ul>
+        </li>
+    {{else}}
+        <li class="file_elem">
+            <i class="fa fa-file-code-o"></i> {{this.name}}
+        </li>
+    {{/if}}
+{{/each}}

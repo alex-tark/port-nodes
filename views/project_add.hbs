@@ -1,0 +1,64 @@
+<div class="container">
+    <div class="vertical">
+        <div class="formContent">
+            <div class="h1 text-center marbot">{{title}}</div>
+            <div class="col-sm-2"></div>
+            <div class="col-sm-8">
+                <form data-toggle="validator" role="form" action="#" method="POST" id="addForm">
+                    
+                    <div class="row">
+
+                        <div class="form-group col-sm-6">
+                            <label for="name" class="control-label">Name of project *</label>
+                            <input type="text" name="title" 
+                                data-minlength="5" data-maxlength="30" 
+                                class="form-control" id="name" 
+                                placeholder="Write the name of your project" required>
+
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="type" class="control-label">Type of application *</label>
+                            <input type="text" name="type" 
+                                data-minlength="5" data-maxlength="30" class="form-control" 
+                                id="type" placeholder="Write the type of your project" required>
+
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="link" class="control-label">Link to the project</label>
+                            <input type="text" name="link" 
+                                data-minlength="5" data-maxlength="30" 
+                                class="form-control" id="link" 
+                                placeholder="Write web link to your project">
+                        </div>
+
+                        <div class="form-group col-sm-6">
+                            <label for="type" class="control-label">Language *</label>
+                            <input type="text" name="language" 
+                                data-minlength="2" data-maxlength="30" class="form-control" 
+                                id="type" placeholder="Language of your application" required>
+
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="desctiption">Description</label>
+                        <textarea class="form-control" form="addProject" id="desctiption" name="description">
+                        </textarea>
+
+                        <div class="help-block with-errors">* - required inputs</div>
+                    </div>
+
+                    <div class="btn-cntr">
+                        <button type="submit" class="btn btn-success" id="reg" name="ok"><i class="fa fa-plus"></i> Create</button>
+                    </div>
+                </form>            
+            </div>
+        </div>
+    </div>
+</div>

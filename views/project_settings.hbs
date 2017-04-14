@@ -1,0 +1,93 @@
+<div class="container martop">
+    <a class="btn btn-link" href="/project?id={{proj._id}}"><i class="fa fa-angle-left" aria-hidden="true"></i> Back to the project</a>
+    <div class="h3 text-center">
+        {{title}}
+    </div>
+    
+    <div class="formContent martop">
+        <div class="col-sm-2"></div>
+        <div class="col-sm-8">
+            <form data-toggle="validator" role="form" action="#" method="POST" id="addForm">
+                <div class="row">
+
+                    <div class="form-group col-sm-6">
+                        <label for="name" class="control-label">Name of project: </label>
+                        <input type="text" name="title" 
+                            data-minlength="5" data-maxlength="30" 
+                            class="form-control" id="name" 
+                            placeholder="{{proj.title}}" value="{{proj.title}}"
+                            required disabled>
+
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="type" class="control-label">Type of application *</label>
+                        <input type="text" name="type" 
+                            data-minlength="5" data-maxlength="30" class="form-control" 
+                            id="type" placeholder="Write the type of your project"
+                            value="{{proj.type}}" required>
+
+                        <div class="help-block with-errors"></div>
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="link" class="control-label">Link to the project</label>
+                        <input type="text" name="link" 
+                            data-minlength="5" data-maxlength="30" 
+                            class="form-control" id="link" 
+                            placeholder="Write web link to your project"
+                            value="{{proj.link}}">
+                    </div>
+
+                    <div class="form-group col-sm-6">
+                        <label for="type" class="control-label">Language *</label>
+                        <input type="text" name="language" 
+                            data-minlength="2" data-maxlength="30" class="form-control" 
+                            id="type" placeholder="Language of your application"
+                            value="{{proj.language}}" required>
+
+                        <div class="help-block with-errors"></div>
+                    </div>
+                
+                    <div class="form-group col-sm-6">
+                        <label for="type" class="control-label">Open to users</label>
+                        <input type="text" name="users" 
+                            data-minlength="2" data-maxlength="30" class="form-control" 
+                            id="type" placeholder="Add new user to access this project by login"
+                            >
+                        <div class="help-block with-errors">
+                        <ul>
+                            <li>+ {{proj.user}}</li>
+                        </ul></div>
+                    </div>
+
+                </div>
+                <div class="form-group">
+                    <label for="status">Status</label>
+                    <div id="status">
+                        <label class="radio-inline"><input type="radio" name="stats">Active</label>
+                        <label class="radio-inline"><input type="radio" name="stats">Terminated</label>
+                        <label class="radio-inline"><input type="radio" name="stats">Archive</label>
+                    </div>
+
+                    <div class="help-block with-errors">Projects status is <b>{{proj.status}}</b> now</div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="desctiption">Description</label>
+                    <textarea class="form-control" form="addProject" 
+                    id="desctiption" name="description">
+                        {{proj.description}}
+                    </textarea>
+
+                    <div class="help-block with-errors">* - required inputs</div>
+                </div>
+
+                <div class="btn-cntr">
+                    <button type="submit" class="btn btn-success" id="reg" name="ok">Save</button>
+                </div>
+            </form>            
+        </div>
+    </div>
+</div>
