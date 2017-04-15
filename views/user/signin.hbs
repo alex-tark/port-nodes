@@ -1,0 +1,101 @@
+<script type="text/javascript">
+    $.ajax({
+            url: 'http://projectmanagerapi.herokuapp.com/v1/',
+            method: 'get',
+            dataType: 'json',
+            headers: { 'token': localStorage.getItem('token') || "" },
+            success: function (doc, status) {
+                if (!doc.success) {
+                    $("#err").show();
+                    $("#preloader").hide();
+                } else {
+                    window.location = "http://localhost:3000/project?page=1";
+                }
+            }
+        });
+</script>
+
+<div class="pad-top"></div>
+<div class="container">
+    <div id="err">
+        <div class="vertical">
+            <div class="formContent" id="frmlg">
+                <div class="h1 text-center">{{title}}</div>
+                <div class="col-sm-4"></div>
+                <div class="inputValues col-sm-4">
+                    <img src="/images/login-ico.png" alt="login icon" id="logoIcos">
+                    <form data-toggle="validator" id="logForm" method="post" action="http://projectmanagerapi.herokuapp.com/v1/auth">
+                        <div class="form-group">
+                            <label for="login" class="control-label">Login</label>
+                            <input type="text" name="login" 
+                                data-minlength="5" data-maxlength="30" 
+                                class="form-control" id="login" 
+                                placeholder="Write your login" required>
+
+                            <div class="help-block with-errors"></div>
+                        </div>
+                    
+                        <div class="form-group">
+                            <label for="password" class="control-label">Password</label>
+                            <input type="password" name="password" 
+                                data-minlength="5" data-maxlength="30" 
+                                class="form-control" id="password" 
+                                placeholder="Write your password" required>
+                            <div class="help-block with-errors"></div>
+                        </div>
+
+                        <div class="col-sm-12 col-md-12 col-xs-12 text-center marbot">
+                            <div class="col-sm-4 col-md-4 col-xs-4">
+                                <a href="/loginfb" class="btn btn-link"><i class="fa fa-facebook" aria-hidden="true"></i></a>    
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-xs-4">
+                                <a href="/logingps" class="btn btn-link"><i class="fa fa-google-plus" aria-hidden="true"></i></a>    
+                            </div>
+                            <div class="col-sm-4 col-md-4 col-xs-4">
+                                <a href="/loginvk" class="btn btn-link"><i class="fa fa-vk" aria-hidden="true"></i></a>    
+                            </div>
+                        </div>
+                        <div class="btn-cntr">
+                            <div class="btn btn-success sendData" id="log" name="ok">Sign in</div>
+                        </div>
+                    </form>            
+                </div>
+                <div class="col-sm-4"></div>
+            </div>
+        </div>
+    </div>
+
+    <script type="text/javascript">
+        $("#logoIcos").css({ "width": $("#logForm").width() / 2 + "px" });
+    </script>
+</div>
+
+<script type="text/javascript">
+    $(".sendData").click(function() {
+        var loginData = {
+            "login": $("#login").val(),
+            "password": $("#password").val()
+        }
+
+        $.post('http://projectmanagerapi.herokuapp.com/v1/auth', 
+            loginData,
+            function (doc) {
+                let loginUser = function(item, success, error) {
+                    if (item.success) {
+                        success();
+                    } else {
+                        error();
+                    }
+                }
+
+                loginUser(doc, function() {
+                    localStorage.setItem('token', doc.data);
+                    localStorage.setItem('login', $("#login").val());
+                    console.log(typeof localStorage.getItem('login'));
+                    $("#frmlg").html("<h1>Success auth</h1><a href='/project'>View projects</a>");
+                }, function() {
+                    $("#frmlg").val("Err");
+                });
+            });
+    });
+</script>

@@ -1,0 +1,28 @@
+<script type="text/javascript">
+    $.ajax({
+            url: 'http://projectmanagerapi.herokuapp.com/v1/',
+            method: 'get',
+            dataType: 'json',
+            headers: { 'token': localStorage.getItem('token') || "" },
+            success: function (doc, status) {
+                if (doc.success) {
+                    $("#err").show();
+                    $("#preloader").hide();
+
+                } else {
+                    setTimeout(function() {
+                        window.location = "http://localhost:3000/user/signin";
+                    }, 3000);
+                }
+            }
+        });
+</script>
+
+<div class="container martop">
+    <div id="err">
+        <div class="login">llsdalda</div>
+        <div class="projects">lslldaslad</div>
+        <div class="comments">228</div>
+        <div class="regdate">dkasoaas</div>
+    </div>
+</div>

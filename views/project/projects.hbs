@@ -5,12 +5,16 @@
         headers: { "token": localStorage.getItem('token') || "" },
         success: function(doc, status) {
             if (doc.success) {
+                $("#preloader").hide();
+                $("#err").show();
                 var statuses = {
                     "All": 0,
                     "Active": 0,
                     "Terminated": 0,
                     "Archive": 0
                 };
+
+                document.title = localStorage.getItem('login') + " projects | Project code";
 
                 for (var i = 0; i < doc.data.length; ++i) {
                     statuses.All += 1;
@@ -51,46 +55,54 @@
                 $("span.statTerminated").html(statuses.TerminatedAll);
                 $("span.statArchive").html(statuses.Archive);
 
-                console.log(statuses);
-
                 $(".pagination").html(pagination);
                 $("#projects_list").html(content);
             } else {
-
+                setTimeout(function() {
+                    window.location = "http://localhost:3000/user/signin";
+                }, 3000);
             }
         },
         error: function(xhr, status, error) {
-            console.log(111);
+            setTimeout(function() {
+                window.location = "http://localhost:3000/user/signin";
+            }, 3000);
         }
     });
 </script>
 
 <div class="container">
-    <div class="col-sm-12 col-md-12 col-xs-12 martop marbot">
-        <a href="/project/add" class="btn btn-default text-left">
-            <i class="fa fa-plus"></i> New project
-        </a>
+    <div id="err">
+        <div class="col-sm-12 col-md-12 col-xs-12 martop marbot">
+            <a href="/project/add" class="btn btn-default text-left">
+                <i class="fa fa-plus"></i> New project
+            </a>
+        </div>
+
+        <div class="padbot status">
+            <div class="col-sm-12 col-md-3 col-xs-3 text-center">
+                <a href="/project?page=1" class="btn bl-elem"><div class="circle all"></div> All (<span class="statAll">0</span>)</a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-xs-3 text-center">
+                <a href="/project?status=active&page=1" class="btn bl-elem"><div class="circle active"></div> Active (<span class="statActive">0</span>)</a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-xs-3 text-center">
+                <a href="/project?status=terminated&page=1" class="btn bl-elem"><div class="circle terminated"></div> Terminated (<span class="statTerminated">0</span>)</a>
+            </div>
+            <div class="col-sm-12 col-md-3 col-xs-3 text-center">
+                <a href="/project?status=archive&page=1" class="btn bl-elem"><div class="circle archive"></div> Archive (<span class="statArchive">0</span>)</a>
+            </div>
+        </div>
+
+        <div id="projects_list">
+            <div class="padtop">
+                <div class="text-center">Loading projects... Please, wait.</div>
+            </div>
+        </div>
+
+        <div class="col-sm-12 col-md-12 col-xs-12 text-center">
+            <ul class="pagination">
+            </ul>
+        </div>
     </div>
-
-    <div class="padbot status">
-        <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?page=1" class="btn bl-elem"><div class="circle all"></div> All (<span class="statAll">0</span>)</a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?status=active&page=1" class="btn bl-elem"><div class="circle active"></div> Active (<span class="statActive">0</span>)</a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?status=terminated&page=1" class="btn bl-elem"><div class="circle terminated"></div> Terminated (<span class="statTerminated">0</span>)</a>
-        </div>
-        <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?status=archive&page=1" class="btn bl-elem"><div class="circle archive"></div> Archive (<span class="statArchive">0</span>)</a>
-        </div>
-    </div>
-
-<div id="projects_list"></div>
-
-<div class="col-sm-12 col-md-12 col-xs-12 text-center">
-    <ul class="pagination">
-    </ul>
-</div>
 </div>

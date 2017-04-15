@@ -14,7 +14,9 @@
                                 callback();
                             }
 
-            if (doc.success) {
+            if (!doc.success) {
+                $("#preloader").hide();
+                $("#err").show();
                 renderPage(doc, function() {
                     let page = new jsPDF();
                     page.fromHTML($("body").get(0), 15, 15, {
@@ -24,16 +26,25 @@
                     page.output("dataurlnewwindow"); 
                 });
             } else {
-                alert("ADASD");
+                setTimeout(function() {
+                    window.location = "http://localhost:3000/user/signin";
+                }, 3000);
             }
         },
+        error: function() {
+            setTimeout(function() {
+                window.location = "http://localhost:3000/user/signin";
+            }, 3000);
+        }
     });
 </script>
 
 <div class="container">
-    <div class="h1"><b>Name of project: </b> <span class="name"></span></div>
-    <div class="h4"><b>Project status: </b> <span class="status"></span></div>
-    <div class="p"><b>User: </b> <span class="user">admin</span></div>
-    <div class="h5"><b>Routes: </b> NaN</div>
-    <div class="p"><b>Description of the project: </b> <span class="description"></span></div>
+    <div id="err">
+        <div class="h1"><b>Name of project: </b> <span class="name"></span></div>
+        <div class="h4"><b>Project status: </b> <span class="status"></span></div>
+        <div class="p"><b>User: </b> <span class="user">admin</span></div>
+        <div class="h5"><b>Routes: </b> NaN</div>
+        <div class="p"><b>Description of the project: </b> <span class="description"></span></div>
+    </div>
 </div>

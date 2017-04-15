@@ -11,36 +11,36 @@ const itemsOnPage = 6;
 router.get('/', function(req, res, next) {
   if (req.query.page != undefined) {
     if (req.query.id == undefined) {
-        res.render('projects', { 
-                                  title: req.cookies.username + ' projects | Project code'
+        res.render('project/projects', { 
+                                  title: "Wait | Project code"
                                 });
     } else {
       res.redirect('/project?page=1');
     }
   } else {
-    if (req.query.id == undefined) {
+    if (req.query.id === undefined) {
       res.redirect('/project?page=1');
     } else {
-      res.render('project', { title: " project | Project code", id: req.query.id });
+      res.render('project/project', { title: "Wait | Project code", id: req.query.id });
     }
   }
 });
 
 router.get('/add', function(req, res) {
-  res.render('project_add', { 
-    title: "Add new project", 
-    errors: req.query.errors ? req.query.errors.split('+') : false
+  res.render('project/project_add', { 
+    title: "Add new project"
   });
 });
 
 router.get('/settings', function(req, res) {
   if (req.query.id == undefined) {
-    res.render('projects_settings', {
-      title: req.cookies.username + " projects settings | Project code"
+    res.render('project/project_settings', {
+      title: "Wait | Project code"
     });
   } else {
-    res.render('project_settings', {
-                  titile: "Project settings | Project code"
+    res.render('project/project_settings', {
+                  titile: "Project settings | Project code",
+                  id: req.query.id
               });
   }
 });
@@ -65,7 +65,7 @@ router.get('/topdf', function(req, res, next) {
       res.setHeader('Content-type', 'application/pdf');
       doc.pipe(res);
       */
-      res.render('topdf', {
+      res.render('project/topdf', {
         title: "Project PDF page | Project code",
         id: req.query.id
       })

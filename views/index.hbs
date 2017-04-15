@@ -1,27 +1,71 @@
+<script type="text/javascript">
+    $(function() {
+        $("#preloader").hide();
+
+        $.ajax('http://projectmanagerapi.herokuapp.com/v1/projects_by_user/1', {
+        dataType: 'json',
+        type: 'get',
+        headers: { "token": localStorage.getItem('token') || "" },
+        success: function(doc, status) {
+                if (doc.success) {
+                    let right = "<div class='col-sm-2 col-md-2 col-xs-2'></div>" +
+                                "<div class='col-sm-10 col-md-10 col-xs-10 text-center'><div id='bac'> Welcome back, " + localStorage.getItem('login') + "! Now you can use your <a href='/user'>profile</a> or visit the <a href='/project?page=1'>projects list</a></div></div>"
+                    $("#rightPart").html(right);
+                }
+            }
+        });
+    });
+</script>
 <div id="header">
-    <div class="text-center">
-        Portfolio
+    <div class="col-sm-6 col-md-6 col-xs-6" id="leftPart">
+    </div>
+    <div class="col-sm-6 col-md-6 col-xs-6" id="rightPart">
+        
     </div>
 </div>
 
-<div id="aboutCols">
-    <div class="container jstf">
-        <div class="h1 text-center">
-            Reasons
-        </div>
-        <div class="col-sm-12 col-md-4 col-xs-4">
-            <div class="h2 text-center">Title</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga reiciendis delectus sit animi eveniet dolor, possimus repellat voluptates magni, obcaecati quos unde impedit harum aliquam tenetur dolorum consequatur. Cumque, rem!</p>
+<div id="footerUp">
+    <i class="fa fa-5x fa-angle-up" aria-hidden="true"></i>
+</div>
+
+<div id="indexFooter">
+    <div class="container">
+        <div class="text-center col-sm-12 col-md-6 col-xs-6 h47">
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">Our team</a>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">About project</a>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">GitHub</a>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">Partnership</a>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">Work</a>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">Documentation</a>
+            </div>
+            <div class="col-sm-6 col-md-3 col-xs-3">
+                <a href="#">Easy start</a>
+            </div>
         </div>
 
-        <div class="col-sm-12 col-md-4 col-xs-4">
-            <div class="h2 text-center">Title</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga reiciendis delectus sit animi eveniet dolor, possimus repellat voluptates magni, obcaecati quos unde impedit harum aliquam tenetur dolorum consequatur. Cumque, rem!</p>
-        </div>
-
-        <div class="col-sm-12 col-md-4 col-xs-4">
-            <div class="h2 text-center">Title</div>
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Fuga reiciendis delectus sit animi eveniet dolor, possimus repellat voluptates magni, obcaecati quos unde impedit harum aliquam tenetur dolorum consequatur. Cumque, rem!</p>
+        <div class="h5 text-center col-sm-12 col-md-6 col-xs-6 h47">
+            PROJECT MANAGER VIEWER © 47 HOURS
         </div>
     </div>
 </div>
+
+<script type="text/javascript">
+    let ifHeight = $("#indexFooter").height();
+    var reqFlag = true;
+    $("#footerUp").click(function() {
+        $("#indexFooter").animate({ "bottom": (reqFlag ? "+=" : "-=") + (ifHeight) }, "slow");
+        $(this).animate({ "bottom": (reqFlag ? "+=" : "-=") + (ifHeight) }, "slow");
+        reqFlag = !reqFlag;
+    });
+</script>
