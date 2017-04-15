@@ -5,33 +5,15 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 var hbs = require('hbs');
-var fs = require('fs');
-
-var mongoose = require('mongoose');
-var session = require('express-session');
-var MongoStore = require('connect-mongo')(session);
-var passport   = require('passport');
-var LocalStrategy = require('passport-local').Strategy;
-
-passport.use(new LocalStrategy({
-  usernameField: 'login',
-  passwordField: 'password'
-}, function (login, password, done) {
-  model.user.findOne({ login: login }, function (err,user) {
-    
-  })
-}));
 
 
 var index    = require('./routes/index');
 var user     = require('./routes/users');
 var projects = require('./routes/projects.js');
-var db       = mongoose.connect("mongodb://admin:defender@ds147920.mlab.com:47920/port-nodes");
 var admin    = require('./routes/admin');
 
 var app = express();
 
-global.model = require('./models/index.js');
 global.USER_DIR = __dirname + '/users_temlates/';
 global.__project = __dirname;
 
@@ -52,15 +34,6 @@ app.use('/', index);
 app.use('/user', user);
 app.use('/project', projects);
 app.use('/admin', admin);
-
-app.use(session({
-  secret: 'lorem',
-  resave: false,
-  saveUninitialized: false,
-  store: new MongoStore({ 
-    url: 'mongodb://admin:defender@ds147920.mlab.com:47920/port-nodes',
-  })
-}));
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

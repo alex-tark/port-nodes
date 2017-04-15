@@ -10,11 +10,7 @@ router.get('/', function(req, res, next) {
 });
 
 router.get('/signin', function(req, res, next) {
-  if (req.cookies.auth) {
-    res.redirect('/user');
-  } else {
-    res.render('signin', { title: "Sign In now", errors: false });
-  }
+  res.render('signin', { title: "Sign In now" });
 });
 
 router.get('/signup', function(req, res, next) {

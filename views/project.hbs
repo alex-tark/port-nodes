@@ -1,10 +1,29 @@
+<script type="text/javascript">
+    $.ajax('http://projectmanagerapi.herokuapp.com/v1/projects/{{{id}}}', {
+        dataType: 'json',
+        type: 'get',
+        headers: { 'token': localStorage.getItem('token') },
+        success: function(doc, status) {
+            if (doc.success) {
+                document.title = doc.data.title + " project | Project code";
+                $("span.usname").html("admin");
+                $("span.description").html(doc.data.description);
+            } else {
+                alert("asdasddsa");
+            }
+        },
+        error: function(xhr, status, error) {
+        }
+    }); 
+</script>
+
 <div class="container">
     <div class="col-sm-6 col-md-6 col-xs-6">
     <a class="btn btn-link martop" href="/project?page=1"><i class="fa fa-angle-left" aria-hidden="true"></i> Projects list</a>
 </div>
 
 <div class="col-sm-6 col-md-6 col-xs-6 text-right">
-    <a class="btn btn-link martop" href="/project/settings?id={{proj._id}}"><i class="fa fa-cog" aria-hidden="true"></i> Project settings</a>
+    <a class="btn btn-link martop" href="/project/settings?id={{{id}}}"><i class="fa fa-cog" aria-hidden="true"></i> Project settings</a>
 </div>
     <div class="col-sm-12 col-md-12 col-xs-12">
         <div id="mainView">
@@ -12,7 +31,7 @@
                 <div id="handle_bar" class="col-sm-12 col-md-12 col-xs-12">
                     <div class="left_bar">
                         <div class="handle_elem text-center">
-                            <a href="/project/topdf?id={{proj._id}}"
+                            <a href="/project/topdf?id={{{id}}}"
                                data-toggle="tooltip" title="Open in PNG">
                                 <i class="fa fa-file-text-o fa-2x" aria-hidden="true"></i>
                             </a>
@@ -41,7 +60,7 @@
                     <div class="right_bar">
                         <div class="clone_link">
                             <div id="cpylink" class="link" data-clipboard-target="#cpylink">
-                                https://projectcode.org/{{username}}?={{proj.title}}
+                                https://projectcode.org/project?id={{{id}}}
                             </div>
                         </div>
                     </div>
@@ -70,7 +89,7 @@
                 </div>
                 <div class="source col-sm-12 col-md-9 col-xs-9">
                     <div class="center text-center">
-                        <div class="h3">Welcome to the project manage editor, {{username}}!</div>
+                        <div class="h3">Welcome to the project manage editor, <span class="usname"></span>!</div>
                         <span class="about">To start just click on the file..<i class="blink">.</i></span>
                     </div>
                 </div>
@@ -119,5 +138,5 @@
         });
     </script>
 <div class="h3">Description of the project</div>
-{{description}}
+<span class="description"></span>
 </div>

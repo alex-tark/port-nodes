@@ -1,0 +1,39 @@
+<script type="text/javascript">
+    $.ajax("http://projectmanagerapi.herokuapp.com/v1/projects/{{{id}}}", {
+        dataType: 'json',
+        type: 'get',
+        headers: { 'token': localStorage.getItem('token') },
+        success: function (doc, status) {
+            var renderPage = function (docm, callback) {
+                                document.title = docm.data.title + " PDF page";
+                                $("span.name").html(docm.data.title);
+                                $("span.status").html(docm.data.status);
+                                $("span.description").html(docm.data.description);
+                                $("#menu").css({ "display": "none" });
+
+                                callback();
+                            }
+
+            if (doc.success) {
+                renderPage(doc, function() {
+                    let page = new jsPDF();
+                    page.fromHTML($("body").get(0), 15, 15, {
+                        "width": 150
+                    });
+                    page.autoPrint();
+                    page.output("dataurlnewwindow"); 
+                });
+            } else {
+                alert("ADASD");
+            }
+        },
+    });
+</script>
+
+<div class="container">
+    <div class="h1"><b>Name of project: </b> <span class="name"></span></div>
+    <div class="h4"><b>Project status: </b> <span class="status"></span></div>
+    <div class="p"><b>User: </b> <span class="user">admin</span></div>
+    <div class="h5"><b>Routes: </b> NaN</div>
+    <div class="p"><b>Description of the project: </b> <span class="description"></span></div>
+</div>

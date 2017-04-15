@@ -1,3 +1,70 @@
+<script type="text/javascript">
+    $.ajax('http://projectmanagerapi.herokuapp.com/v1/projects_by_user/1', {
+        dataType: 'json',
+        type: 'get',
+        headers: { "token": localStorage.getItem('token') || "" },
+        success: function(doc, status) {
+            if (doc.success) {
+                var statuses = {
+                    "All": 0,
+                    "Active": 0,
+                    "Terminated": 0,
+                    "Archive": 0
+                };
+
+                for (var i = 0; i < doc.data.length; ++i) {
+                    statuses.All += 1;
+                    switch (doc.data[i].status) {
+                        case "Active": statuses.Active += 1; break;
+                        case "Termminated": statuses.Terminated += 1; break;
+                        case "Archive": statuses.Archive += 1; break;
+                        default: 
+                            console.log("Wrong data");
+                    }
+                }
+
+                var content = '';
+                for (let i = 0; i < doc.data.length; ++i) {
+                    content +=            "<a href='/project?id=" + doc.data[i].id + "'>" +
+                                          "  <div class='col-sm-12 col-md-6 col-xs6 text-center pad-top h33'>" + 
+                                          "      <div class='project-border'>" +
+                                          "          <div class='h5'><b>" + doc.data[i].title + "</b></div>" +
+                                          "          <p><b>Type: </b>" + doc.data[i].type + "</p> " +
+                                          "          <p><b>Status: </b>" + doc.data[i].status +"</p> " +
+                                          "      </div> " +
+                                          "  </div> " +
+                                          "</a>"
+                }
+
+                let pagPages = doc.data.length / 6 === 0 ? 1 : doc.data.length / 6;
+                var pagination = '';
+                for (let i = 0; i < pagPages; ++i) {
+                    pagination +=
+                                "<li class='{{active}}'>" +
+                                "    <a href='project?page={{item}}'> " + (i + 1) + 
+                                "    </a> " + 
+                                "</li>"
+                }
+
+                $("span.statAll").html(statuses.All);
+                $("span.statActive").html(statuses.Active);
+                $("span.statTerminated").html(statuses.TerminatedAll);
+                $("span.statArchive").html(statuses.Archive);
+
+                console.log(statuses);
+
+                $(".pagination").html(pagination);
+                $("#projects_list").html(content);
+            } else {
+
+            }
+        },
+        error: function(xhr, status, error) {
+            console.log(111);
+        }
+    });
+</script>
+
 <div class="container">
     <div class="col-sm-12 col-md-12 col-xs-12 martop marbot">
         <a href="/project/add" class="btn btn-default text-left">
@@ -7,40 +74,23 @@
 
     <div class="padbot status">
         <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?page=1" class="btn bl-elem"><div class="circle all"></div> All ({{counts.all}})</a>
+            <a href="/project?page=1" class="btn bl-elem"><div class="circle all"></div> All (<span class="statAll">0</span>)</a>
         </div>
         <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?status=active&page=1" class="btn bl-elem"><div class="circle active"></div> Active ({{counts.active}})</a>
+            <a href="/project?status=active&page=1" class="btn bl-elem"><div class="circle active"></div> Active (<span class="statActive">0</span>)</a>
         </div>
         <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?status=terminated&page=1" class="btn bl-elem"><div class="circle terminated"></div> Terminated ({{counts.terminated}})</a>
+            <a href="/project?status=terminated&page=1" class="btn bl-elem"><div class="circle terminated"></div> Terminated (<span class="statTerminated">0</span>)</a>
         </div>
         <div class="col-sm-12 col-md-3 col-xs-3 text-center">
-            <a href="/project?status=archive&page=1" class="btn bl-elem"><div class="circle archive"></div> Archive ({{counts.archive}})</a>
+            <a href="/project?status=archive&page=1" class="btn bl-elem"><div class="circle archive"></div> Archive (<span class="statArchive">0</span>)</a>
         </div>
     </div>
 
-{{#each proj}}
-    <a href="/project?id={{id}}">
-        <div class="col-sm-12 col-md-6 col-xs6 text-center pad-top h33">
-            <div class="project-border">
-                <div class="h5"><b>{{title}}</b></div>
-                <p><b>Type: </b>{{type}}</p>
-                <p><b>Status: </b>{{status}}</p>
-            </div>
-        </div>
-    </a>
-{{/each}}
+<div id="projects_list"></div>
 
 <div class="col-sm-12 col-md-12 col-xs-12 text-center">
     <ul class="pagination">
-    {{#each pagination}} 
-        <li class="{{active}}">
-            <a href="project?page={{item}}">
-                {{item}}
-            </a>
-        </li>
-    {{/each}}
     </ul>
 </div>
 </div>
