@@ -478,3 +478,10 @@ ul {
   z-index: 1001;
   display: none;
 }
+
+#startMenu {
+  position: fixed;
+  clear: both;
+  width: inherit;
+  margin-left: -10px;
+}

@@ -5,12 +5,15 @@
             dataType: 'json',
             headers: { 'token': localStorage.getItem('token') || "" },
             success: function (doc, status) {
-                if (!doc.success) {
+                if (doc.success) {
                     $("#err").show();
                     $("#preloader").hide();
                 } else {
-                    window.location = "http://localhost:3000/project?page=1";
+                    //window.location = "http://localhost:3000/project?page=1";
                 }
+            },
+            error: function() {
+                console.log("err");
             }
         });
 </script>
