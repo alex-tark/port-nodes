@@ -1,6 +1,7 @@
 <script type="text/javascript">
     $(function() {
         $("#preloader").hide();
+        $("#header").css({ "overflow": "hidden" })
 
         $.ajax('http://projectmanagerapi.herokuapp.com/v1/projects_by_user/1', {
         dataType: 'json',
@@ -8,21 +9,104 @@
         headers: { "token": localStorage.getItem('token') || "" },
         success: function(doc, status) {
                 if (doc.success) {
-                    let right = "<div class='col-sm-2 col-md-2 col-xs-2'></div>" +
-                                "<div class='col-sm-10 col-md-10 col-xs-10 text-center'><div id='bac'> Welcome back, " + localStorage.getItem('login') + "! Now you can use your <a href='/user'>profile</a> or visit the <a href='/project?page=1'>projects list</a></div></div>"
-                    $("#rightPart").html(right);
+                    let right = "<div class='text-center animated bounceIn martop' id='bacLayer'><div id='bac'> Welcome back, " + localStorage.getItem('login') + "! Now you can use your <a href='/user'>profile</a> or visit the <a href='/project?page=1'>projects list</a></div></div>"
+                    $("body").append(right);
+
+                    $.ajax('http://projectmanagerapi.herokuapp.com/v1/projects_by_user/1', {
+                        dataType: 'json',
+                        type: 'get',
+                        headers: { "token": localStorage.getItem('token') },
+                        success: function(doc, status) {
+                            if (doc.success) {
+                                let lastProject = doc.data[doc.data.length - 1];
+                                $("span.alienName").html("<a href='project?id=" + lastProject.id +"'>" + lastProject.title + "</a>");
+                                $("span.menuUsername").html(localStorage.getItem('login'));
+                            }
+                        }
+                    })
                 }
+            }
+        });
+
+        $.ajax('http://projectmanagerapi.herokuapp.com/v1/projects_by_user/1', {
+            dataType: 'json',
+            type: 'get',
+            headers: { "token": localStorage.getItem('token') || "" },
+            success: function(doc, status) {
+                if (doc.success) {
+                    $("#preloader").hide();
+                    $("span.projCount").html(doc.data.length);
+
+                    let last4Projects = '';
+                    for (let i = doc.data.length - 1; i > doc.data.length - 5; --i) {
+                        last4Projects += "<div class='col-sm-6 col-md-6 col-xs-6 elList'><a href='project?id=" + doc.data[i].id + "'><b>Name: </b>" + doc.data[i].title + "</a></div>"
+                    }
+
+                    $(".pgLst").html(last4Projects);
+                } else {
+                    setTimeout(function() {
+                        window.location = "http://localhost:3000/user/signin";
+                    }, 3000);
+                }
+            },
+            error: function(xhr, status, error) {
+                setTimeout(function() {
+                    window.location = "http://localhost:3000/user/signin";
+                }, 3000);
             }
         });
     });
 </script>
 <div id="header">
-    <div class="col-sm-6 col-md-6 col-xs-6" id="leftPart">
-    </div>
-    <div class="col-sm-6 col-md-6 col-xs-6" id="rightPart">
-        
+    <p class='al' id='al'><img class='alien animated bounce infinite' src='/images/alien.png' alt='alien'></p>
+    <div class="col-sm-6 col-md-4 col-xs-4 right text-center" id="main-block">
+        <div id="commentsProj">
+            <div class="col-sm-12 col-md-12 col-xs-12 marbot text-left">
+                <div class="h2 marbot text-center"><span class="menuUsername"></span></div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6 marbot">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-terminal fa-stack-1x fa-inverse"></i>
+                    </span>
+                    Projects: <span class="projCount">0</span><br>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6 marbot">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-comment fa-stack-1x fa-inverse" aria-hidden="true"></i>
+                    </span>
+                    Comments: <span class="comCount">0</span><br>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6 marbot">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-calendar fa-stack-1x fa-inverse" aria-hidden="true"></i>
+                    </span>
+                    Days online: <span class="daysCount">0</span><br>
+                </div>
+
+                <div class="col-sm-6 col-md-6 col-xs-6 marbot">
+                    <span class="fa-stack fa-lg">
+                        <i class="fa fa-square fa-stack-2x"></i>
+                        <i class="fa fa-thumb-tack fa-stack-1x fa-inverse" aria-hidden="true"></i>
+                    </span>
+                    Tasks: <span class="tasksCount">0</span><br>
+                </div>
+            </div>
+                <div class="h3">Your <ins>active</ins> projects (last 4)</div>
+            <div class="col-sm-12 col-md-12 col-xs-12 marbot pgLst">
+
+            </div>
+
+            <div class="h3 padtop marbot">Last reviews</div>
+            <div class="h5 marbot">>You don't have reviews now!<</div>
+        </div>
     </div>
 </div>
+<p class="alTalk" id="alTalk">Hello, my name is <span class="alienName"></span>, I'm your project and I really miss u <i class="fa fa-heart"></i></p>
 
 <div id="footerUp">
     <i class="fa fa-5x fa-angle-up" aria-hidden="true"></i>
@@ -60,6 +144,20 @@
     </div>
 </div>
 
+<img src='/images/alien.png' alt='alien' id='middle-alien'>
+<div id="alien-helper">
+    Hello, I'm your assistant and would help you in any case. Lorem ipsum dolor sit amet, consectetur adipisicing elit. Explicabo libero numquam voluptate deleniti! Illo incidunt sint fugiat labore odio rem quod sit molestias, inventore delectus cumque eaque dolor animi culpa!
+    <br>
+    <code>new Event(type _eventType; event _mean) -> 
+        <pre>
+            <b>From:</b> admin
+            <b>Type:</b> mail
+            <b>Message:</b> I WOULD FIND U AND DESTROY YOUR SERVER
+        </pre>
+    </code>
+    If you would have a new message or task I will jump over here. :)
+</div>
+
 <script type="text/javascript">
     let ifHeight = $("#indexFooter").height();
     var reqFlag = true;
@@ -68,4 +166,26 @@
         $(this).animate({ "bottom": (reqFlag ? "+=" : "-=") + (ifHeight) }, "slow");
         reqFlag = !reqFlag;
     });
+
+    var alienFlag = true;
+    $("#al").click(function() {
+        $("#header").animate({
+            "width": "120%",
+            "background-position-x": "80%",
+            "background-position-y": "50%"
+        }, 500);
+
+        $("#main-block").fadeOut();
+        $(".alien").fadeOut("slow");
+
+        $("#middle-alien").fadeIn();
+        $("#alien-helper").fadeIn();
+        $("#footerUp").click(function() {
+            window.location.reload();
+        });
+    });
+
+    setTimeout(function() {
+        $("#bacLayer").fadeOut(5000);
+    }, 5000);
 </script>
